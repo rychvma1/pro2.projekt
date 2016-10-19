@@ -1,4 +1,4 @@
-package cz.uhk.fim.pro2.model;
+package cz.uhk.fim.pro2.game.model;
 
 public class Srdce {
 
