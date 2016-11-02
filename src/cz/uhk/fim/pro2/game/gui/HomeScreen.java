@@ -1,17 +1,23 @@
 package cz.uhk.fim.pro2.game.gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 public class HomeScreen extends Screen {
-	
+
 	public HomeScreen(MainFrame mainFrame){
 		super(mainFrame);
 		
+		JLabel jLabelTitle = new JLabel("FIM BIRD");
+		
+		
 		JButton JButtonPlay = new JButton("play");
-		add(JButtonPlay);
+				add(JButtonPlay);
 		
 		ActionListener lsn1 = new ActionListener() {
 			@Override
@@ -42,8 +48,18 @@ public class HomeScreen extends Screen {
 		};
 		JButtonSound.addActionListener(lsn3);
 		
+		jLabelTitle.setFont(new Font ("Arial", Font.BOLD,24));
+		
+		
+		//umiestnenie tlacitok
+		JButtonPlay.setBounds(100,400,280,50);
+		JButtonScore.setBounds(100,460,280,50);
+		JButtonSound.setBounds(100,520,280,50);
+		
+		JButtonPlay.setFont(new Font ("Arial", Font.PLAIN, 24));
+		JButtonPlay.setBackground(Color.RED);
 		
 		
 	}
-	
+
 }

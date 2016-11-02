@@ -20,5 +20,8 @@ public class ScoreScreen extends Screen {
 						}
 		};
 		JButtonBack.addActionListener(lsn1);
+		
+		//umiestnenie tlacitok
+				JButtonBack.setBounds(100,400,280,50);
 	}
 }

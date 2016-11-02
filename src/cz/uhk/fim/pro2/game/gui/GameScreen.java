@@ -22,5 +22,11 @@ public class GameScreen extends Screen {
 		
 		JButton JButtonPause = new JButton("pouse");
 		add(JButtonPause);
+		
+		//umiestnenie tlacitok
+				JButtonBack.setBounds(100,400,280,50);
+				JButtonPause.setBounds(100,460,280,50);
+				
+				
 	}
 }
