@@ -7,8 +7,8 @@ public class Trubka {
 	private float pozX, pozY;
 	private int height;
 	private Color color;
-	public Trubka(float pozX, float pozY, int hight) {
-		this.height = hight;
+	public Trubka(float pozX, float pozY, Color color) {
+		this.color = color;
 		this.pozX = pozX;
 		this.pozY = pozY;
 	}
