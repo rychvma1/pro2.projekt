@@ -1,10 +1,12 @@
 package cz.uhk.fim.pro2.game.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.Timer;
 
 import cz.uhk.fim.pro2.game.model.Bird;
 import cz.uhk.fim.pro2.game.model.Srdce;
@@ -12,6 +14,9 @@ import cz.uhk.fim.pro2.game.model.Trubka;
 import cz.uhk.fim.pro2.game.model.World;
 
 public class GameScreen extends Screen {
+
+	private long lastTimeMillies;
+	private Timer timer;
 
 	public GameScreen(MainFrame mainFrame) {
 		super(mainFrame);
@@ -29,27 +34,64 @@ public class GameScreen extends Screen {
 		JButton JButtonPause = new JButton("pouse");
 		add(JButtonPause);
 
+		JButtonPause.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				if (timer.isRunning()) {
+					timer.stop();
+				} else {
+					lastTimeMillies = System.currentTimeMillis();
+					timer.start();
+				}
+			}
+		});
+
 		// umiestnenie tlacitok
 		JButtonBack.setBounds(100, 400, 280, 50);
 		JButtonPause.setBounds(100, 460, 280, 50);
 
+		JButtonBack.setFont(new Font("Arial", Font.PLAIN, 24));
+		JButtonBack.setBackground(Color.RED);
+		JButtonPause.setFont(new Font("Arial", Font.PLAIN, 24));
+		JButtonPause.setBackground(Color.RED);
+
 		Bird bird = new Bird("Flapy", 240, 400);
 		World world = new World(bird);
-		
-		//trubky vo svete
+
+		// trubky vo svete
 		world.addTube(new Trubka(400, 400, Color.green));
 		world.addTube(new Trubka(600, 300, Color.green));
 		world.addTube(new Trubka(800, 500, Color.green));
-		
-		//srdcia vo svete
+
+		// srdcia vo svete
 		world.addHearts(new Srdce(500, 450));
 		world.addHearts(new Srdce(700, 600));
-		
+
 		GameCanvas gameCanvas = new GameCanvas(world);
 		add(gameCanvas);
 		gameCanvas.setBounds(0, 0, MainFrame.width, MainFrame.height);
-		
-		//System.out.println(world.toString());
 
+		// System.out.println(world.toString());
+
+		timer = new Timer(20, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				long currentTimeMillis = System.currentTimeMillis();
+
+				float delta = (currentTimeMillis - lastTimeMillies) / 1000F;
+
+				world.update(delta);
+				gameCanvas.repaint();
+
+				lastTimeMillies = currentTimeMillis;
+
+			}
+		});
+
+		lastTimeMillies = System.currentTimeMillis();
+		timer.start();
 	}
 }

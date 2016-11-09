@@ -8,7 +8,8 @@ public class World {
 	private Bird bird;
 	private List<Trubka> tubes;
 	private List<Srdce> hearts;
-
+	public static final int SPEED = 100;
+	
 	public World(Bird bird) {
 		this.bird = bird;
 		tubes = new ArrayList<>();
@@ -43,5 +44,17 @@ public class World {
 
 	public void setBird(Bird bird) {
 		this.bird = bird;
+	}
+	
+	public List<Srdce> getHearts(){
+		return hearts;
+	}
+	
+	public List<Trubka> getTubes(){
+		return tubes;
+	}
+	
+	public void update(float deltaTime){
+		bird.update(deltaTime);
 	}
 }

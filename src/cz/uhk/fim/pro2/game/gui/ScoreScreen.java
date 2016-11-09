@@ -1,5 +1,7 @@
 package cz.uhk.fim.pro2.game.gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,5 +25,8 @@ public class ScoreScreen extends Screen {
 		
 		//umiestnenie tlacitok
 				JButtonBack.setBounds(100,400,280,50);
+				
+				JButtonBack.setFont(new Font("Arial", Font.PLAIN, 24));
+				JButtonBack.setBackground(Color.RED);
 	}
 }

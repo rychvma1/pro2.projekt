@@ -1,5 +1,8 @@
 package cz.uhk.fim.pro2.game.model;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Bird {
 
 	private String name;
@@ -69,5 +72,15 @@ public class Bird {
 	
 	public void removeLive(){
 		lives--;
+	}
+	
+	public void paint(Graphics g){
+		g.setColor(Color.BLUE);
+		
+		g.fillRect((int)getPozX()-25, (int) getPozY()-25, 50, 50);
+	}
+	
+	public void update(float deltaTime){
+		pozX += World.SPEED * deltaTime;
 	}
 }
