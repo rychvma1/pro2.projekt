@@ -3,15 +3,19 @@ package cz.uhk.fim.pro2.game.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.uhk.fim.pro2.game.interfaces.WorldLisener;
+
 public class World {
 
 	private Bird bird;
+	private WorldLisener worldLisener;
 	private List<Trubka> tubes;
 	private List<Srdce> hearts;
 	public static final int SPEED = 100;
-	
-	public World(Bird bird) {
+
+	public World(Bird bird, WorldLisener worldLisener ) {
 		this.bird = bird;
+		this.worldLisener = worldLisener;
 		tubes = new ArrayList<>();
 		hearts = new ArrayList<>();
 	}
@@ -45,16 +49,35 @@ public class World {
 	public void setBird(Bird bird) {
 		this.bird = bird;
 	}
-	
-	public List<Srdce> getHearts(){
+
+	public List<Srdce> getHearts() {
 		return hearts;
 	}
-	
-	public List<Trubka> getTubes(){
+
+	public List<Trubka> getTubes() {
 		return tubes;
 	}
-	
-	public void update(float deltaTime){
+
+	public void update(float deltaTime) {
 		bird.update(deltaTime);
+		
+		if(bird.isOut()){
+			worldLisener.outOf();
+		}
+		
+		for (Trubka tr : tubes) {
+			tr.update(deltaTime);
+			
+			if(bird.collideWith(tr)){
+				worldLisener.crashTube(tr);
+			}
+		}
+		for (Srdce sr : hearts) {
+			sr.update(deltaTime);
+			
+			if(bird.collideWith(sr)){
+				worldLisener.crashHeart(sr);
+			}
+		}
 	}
 }

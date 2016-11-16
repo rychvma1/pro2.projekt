@@ -2,6 +2,7 @@ package cz.uhk.fim.pro2.game.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import cz.uhk.fim.pro2.game.gui.MainFrame;
 
@@ -52,11 +53,28 @@ public class Trubka {
 
 	public void paint(Graphics g) {
 		g.setColor(Color.GREEN);
-
-		g.fillRect((int) getPozX() - 25,  height, 50, (int) (MainFrame.height - height));
+		Rectangle rectH = getRectH();
+		g.fillRect((int)rectH.getX(), (int)rectH.getY(), (int)rectH.getWidth(), (int) rectH.getHeight());
+		
+	//	g.fillRect((int) getPozX() - 25,  height, 50, (int) (MainFrame.height - height));
 		//System.out.println((int) getPozX() - 25 + " " +  height + " " + 50 + " " + (int) (MainFrame.height - height));
 
-		g.fillRect((int) getPozX() - 25, 0, 50,  (height - GAP));
+		Rectangle rectD = getRectD();
+		g.fillRect(rectD.x, rectD.y, rectD.width, rectD.height);
+		//g.fillRect((int) getPozX() - 25, 0, 50,  (height - GAP));
+	}
+	
+	public Rectangle getRectH() {
+		return new Rectangle((int) getPozX() - 25,  height, 50, (int) (MainFrame.height - height));
+	}
+	
+	public Rectangle getRectD() {
+		return new Rectangle((int) getPozX() - 25, 0, 50,  (height - GAP));
+	}
+	
+	public void update(float deltaTime){
+		pozX -= World.SPEED * deltaTime;
+		
 	}
 
 }
