@@ -12,11 +12,14 @@ public class Trubka {
 	private int height;
 	private Color color;
 	private static final int GAP = 200;
+	private static final int WIDTH = 25;
+	private boolean points;
 
 	public Trubka(float pozX, int height, Color color) {
 		this.color = color;
 		this.pozX = pozX;
 		this.height = height;
+		
 	}
 
 	public float getPozX() {
@@ -29,6 +32,14 @@ public class Trubka {
 
 	public float getPozY() {
 		return pozY;
+	}
+
+	public boolean getPoints() {
+		return points;
+	}
+
+	public void setPoints(boolean points) {
+		this.points = points;
 	}
 
 	public void setPozY(float pozY) {
@@ -55,26 +66,35 @@ public class Trubka {
 		g.setColor(Color.GREEN);
 		Rectangle rectH = getRectH();
 		g.fillRect((int)rectH.getX(), (int)rectH.getY(), (int)rectH.getWidth(), (int) rectH.getHeight());
-		
-	//	g.fillRect((int) getPozX() - 25,  height, 50, (int) (MainFrame.height - height));
-		//System.out.println((int) getPozX() - 25 + " " +  height + " " + 50 + " " + (int) (MainFrame.height - height));
 
 		Rectangle rectD = getRectD();
 		g.fillRect(rectD.x, rectD.y, rectD.width, rectD.height);
-		//g.fillRect((int) getPozX() - 25, 0, 50,  (height - GAP));
+	
 	}
 	
 	public Rectangle getRectH() {
-		return new Rectangle((int) getPozX() - 25,  height, 50, (int) (MainFrame.height - height));
+		return new Rectangle((int) getPozX() - WIDTH,  height, 50, (int) (MainFrame.height - height));
 	}
 	
 	public Rectangle getRectD() {
-		return new Rectangle((int) getPozX() - 25, 0, 50,  (height - GAP));
+		return new Rectangle((int) getPozX() - WIDTH, 0, 50,  (height - GAP));
 	}
 	
 	public void update(float deltaTime){
 		pozX -= World.SPEED * deltaTime;
 		
 	}
+	
+	public int getCenterY(){
+		return (int) (height - GAP/2.0);
+	}
 
+	public int getMinX(){
+		return (int) pozX - (WIDTH/2);
+	}
+	
+	public int getMaxX(){
+		return (int) pozX + (WIDTH/2);
+	}
+	
 }

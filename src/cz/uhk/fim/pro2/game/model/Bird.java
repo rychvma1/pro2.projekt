@@ -6,17 +6,21 @@ import java.awt.Rectangle;
 
 public class Bird {
 
+	public static final int DEFAULT_SCORE=0;
+	public static final int DEFAULT_LIVES=3;
 	private String name;
 	private float pozX, pozY;
 	private int speed;
 	private int lives;
+	private int score;
 	private static final int GRAVITY = 150;
-	private static final int JUMP = 350;
+	public static final int JUMP = 350;
 
 	public Bird(String name, float pozX, float pozY) {
 		this.name = name;
 		this.speed = 0;
-		this.lives = 3;
+		this.lives = DEFAULT_LIVES;
+		this.score = DEFAULT_SCORE;
 		this.pozX = pozX;
 		this.pozY = pozY;
 	}
@@ -26,13 +30,9 @@ public class Bird {
 	}
 
 	public void take() {
-	/*	if(collideWith(Srdce sr)){
-			lives++;
-		}*/
-		
-	}
-
-	public void Hraj() {
+		/*
+		 * if(collideWith(Srdce sr)){ lives++; }
+		 */
 
 	}
 
@@ -54,11 +54,27 @@ public class Bird {
 	public boolean collideWith(Srdce sr) {
 		return getRect().intersects(sr.getRect());
 	}
-	
-	public boolean isOut(){
-		//System.out.println(pozY);
+
+	public boolean isOut() {
+		// System.out.println(pozY);
 		return pozY < 0 || pozY > 800;
-		
+
+	}
+	
+	public boolean isAlive(){
+		return lives>0;
+	}
+	
+	public void addPoint(){
+		score++;
+	}
+	
+	public void addLive() {
+		lives++;
+	}
+
+	public void removeLive() {
+		lives--;
 	}
 
 	public void update(float deltaTime) {
@@ -96,20 +112,21 @@ public class Bird {
 		return lives;
 	}
 
-	public void setLives(int lives) {
-		this.lives = lives;
+	public void setLives(int lifes) {
+		this.lives = lifes;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void addLive() {
-		lives++;
+	
+	public int getScore() {
+		return score;
 	}
 
-	public void removeLive() {
-		lives--;
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 }

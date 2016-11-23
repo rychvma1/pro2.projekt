@@ -13,7 +13,7 @@ public class World {
 	private List<Srdce> hearts;
 	public static final int SPEED = 100;
 
-	public World(Bird bird, WorldLisener worldLisener ) {
+	public World(Bird bird, WorldLisener worldLisener) {
 		this.bird = bird;
 		this.worldLisener = worldLisener;
 		tubes = new ArrayList<>();
@@ -60,24 +60,35 @@ public class World {
 
 	public void update(float deltaTime) {
 		bird.update(deltaTime);
-		
-		if(bird.isOut()){
+
+		if (bird.isOut()) {
 			worldLisener.outOf();
 		}
-		
+
 		for (Trubka tr : tubes) {
 			tr.update(deltaTime);
-			
-			if(bird.collideWith(tr)){
+
+			if (bird.collideWith(tr)) {
 				worldLisener.crashTube(tr);
+			} else {
+				if (!tr.getPoints() && bird.getPozX() > tr.getMinX() && bird.getPozX() < tr.getMaxX()) {
+
+					tr.setPoints(true);
+					bird.addPoint();
+					System.out.println("Skore:" + bird.getScore());
+					System.out.println("--------");
+
+				}
 			}
 		}
 		for (Srdce sr : hearts) {
 			sr.update(deltaTime);
-			
-			if(bird.collideWith(sr)){
+
+			if (bird.collideWith(sr)) {
 				worldLisener.crashHeart(sr);
+
 			}
 		}
+
 	}
 }
