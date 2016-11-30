@@ -14,6 +14,9 @@ public class HomeScreen extends Screen {
 		super(mainFrame);
 
 		JLabel jLabelTitle = new JLabel("FIM BIRD");
+		jLabelTitle.setBounds(180, 120, 150, 160);
+
+		add(jLabelTitle);
 
 		JButton JButtonPlay = new JButton("play");
 		add(JButtonPlay);

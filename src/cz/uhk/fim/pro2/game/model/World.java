@@ -3,6 +3,8 @@ package cz.uhk.fim.pro2.game.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JLabel;
+
 import cz.uhk.fim.pro2.game.interfaces.WorldLisener;
 
 public class World {
@@ -77,6 +79,7 @@ public class World {
 					bird.addPoint();
 					System.out.println("Skore:" + bird.getScore());
 					System.out.println("--------");
+					
 
 				}
 			}

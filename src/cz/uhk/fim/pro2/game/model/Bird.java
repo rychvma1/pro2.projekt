@@ -70,11 +70,11 @@ public class Bird {
 	}
 	
 	public void addLive() {
-		lives++;
+		this.lives++;
 	}
 
 	public void removeLive() {
-		lives--;
+		this.lives--;
 	}
 
 	public void update(float deltaTime) {
@@ -109,7 +109,7 @@ public class Bird {
 	}
 
 	public int getLives() {
-		return lives;
+		return this.lives;
 	}
 
 	public void setLives(int lifes) {
@@ -117,12 +117,12 @@ public class Bird {
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	
 	public int getScore() {
-		return score;
+		return this.score;
 	}
 
 	public void setScore(int score) {

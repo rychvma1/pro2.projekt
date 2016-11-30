@@ -55,15 +55,6 @@ public class GameScreen extends Screen implements WorldLisener {
 			}
 		});
 		
-		jLabelLives = new JLabel("Lives: " + bird.DEFAULT_LIVES);
-		jLabelScore = new JLabel("Score: " + bird.DEFAULT_SCORE);
-		
-		jLabelLives.setBounds(30, 120, 50, 160);
-		jLabelScore.setBounds(230, 120, 50, 160);
-		
-		add(jLabelLives);
-		add(jLabelScore);
-
 		// umiestnenie tlacitok
 		JButtonBack.setBounds(50, 50, 100, 50);
 		JButtonPause.setBounds(250, 50, 200, 50);
@@ -77,6 +68,16 @@ public class GameScreen extends Screen implements WorldLisener {
 
 		bird = new Bird("Flapy", 240, 400);
 		World world = new World(bird, this);
+		
+		jLabelLives = new JLabel("Lives: " + bird.getLives());
+		jLabelScore = new JLabel("Score: " + bird.getScore());
+		
+		jLabelLives.setBounds(30, 720, 50, 50);
+		jLabelScore.setBounds(230, 720, 150, 50);
+		
+		add(jLabelLives);
+		add(jLabelScore);
+
 
 		// trubky vo svete
 		world.addTube(new Trubka(400, 400, Color.green));
@@ -113,8 +114,13 @@ public class GameScreen extends Screen implements WorldLisener {
 				float delta = (currentTimeMillis - lastTimeMillies) / 1000F;
 				world.update(delta);
 
+				
 				jLabelLives = new JLabel("Lives: " + bird.getLives());
 				jLabelScore = new JLabel("Score: " + bird.getScore());
+			
+				add(jLabelLives);
+				add(jLabelScore);
+				
 				
 				if(!bird.isAlive()){
 					timer.stop();
@@ -133,25 +139,33 @@ public class GameScreen extends Screen implements WorldLisener {
 
 	@Override
 	public void crashTube(Trubka tube) {
-		System.out.println("Naraz do trubky");
 		bird.removeLive();
 		bird.setPozY(tube.getCenterY());
-		System.out.println(bird.getLives());
+		System.out.println("Naraz do trubky. Lives: " + bird.getLives());
+		jLabelLives = new JLabel("Lives: " + bird.getLives());
+		add(jLabelLives);
 	}
 
 	@Override
 	public void crashHeart(Srdce sr) {
-		System.out.println("Vezmi srdce");
 		sr.setPozY(-100);
 		bird.addLive();
-		System.out.println(bird.getLives());
+		System.out.println("Vzal si srdce. Lives: " + bird.getLives());
+		jLabelLives = new JLabel("Lives: " + bird.getLives());
+		add(jLabelLives);
 	}
 
 	@Override
 	public void outOf() {
-		System.out.println("Si mimo");
-		bird.setPozY(MainFrame.HEIGHT / 2);
+		System.out.println("Si mimo svet");
+		bird.setPozY(400);
 		bird.setSpeed(bird.JUMP/2);
+		bird.setLives(0);
 		bird.isAlive();
+		jLabelLives = new JLabel("Lives: " + bird.getLives());
+		jLabelScore = new JLabel("Score: " + bird.getScore());
+	
+		add(jLabelLives);
+		add(jLabelScore);
 	}
 }
