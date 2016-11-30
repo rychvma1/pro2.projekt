@@ -3,10 +3,12 @@ package cz.uhk.fim.pro2.game.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 public class Srdce {
 
 	private float pozX, pozY;
+	
 
 	public Srdce(float pozX, float pozY) {
 		this.pozX = pozX;
@@ -42,5 +44,9 @@ public class Srdce {
 		public void update(float deltaTime){
 		pozX -= World.SPEED * deltaTime;
 	}
+		
+		public static float getRandomY() {
+			return (new Random().nextFloat() * 300) + 200;
+		}
 
 }

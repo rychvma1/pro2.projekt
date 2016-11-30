@@ -1,5 +1,6 @@
 package cz.uhk.fim.pro2.game.model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,10 @@ public class World {
 	private WorldLisener worldLisener;
 	private List<Trubka> tubes;
 	private List<Srdce> hearts;
+	private static final int SPACE_BETWEEN_TUBES = 300;
+	private static final int SPACE_BETWEEN_HEARTS = 450;
 	public static final int SPEED = 100;
+	private boolean genereted;
 
 	public World(Bird bird, WorldLisener worldLisener) {
 		this.bird = bird;
@@ -60,9 +64,43 @@ public class World {
 		return tubes;
 	}
 
+	public void generateRandom() {
+		for (int i = 0; i < 3; i++) {
+			Trubka tube = new Trubka(SPACE_BETWEEN_TUBES + i * SPACE_BETWEEN_TUBES, (int) Trubka.getRandomHeight(),
+					Color.green);
+			addTube(tube);
+		}
+
+		addHearts(new Srdce(SPACE_BETWEEN_HEARTS, Srdce.getRandomY()));
+
+		genereted = true;
+	}
+
+	private void regenerate() {
+		for (Trubka tube : tubes) {
+			if (tube.getPozX() < -100) {
+				tube.setPozX(tube.getPozX() + tubes.size() * SPACE_BETWEEN_TUBES);
+				tube.setHeight((int) Trubka.getRandomHeight());
+				tube.setPoints(false);
+			}
+		}
+
+		for (Srdce sr : hearts) {
+			if (sr.getPozX() < -100) {
+				sr.setPozX(sr.getPozX() + ((hearts.size()) + 2) * SPACE_BETWEEN_HEARTS);
+				sr.setPozY(sr.getRandomY());
+			}
+		}
+	}
+
 	public void update(float deltaTime) {
+		if(genereted){
+			regenerate();
+		}
+		
 		bird.update(deltaTime);
 
+		
 		if (bird.isOut()) {
 			worldLisener.outOf();
 		}
@@ -79,7 +117,6 @@ public class World {
 					bird.addPoint();
 					System.out.println("Skore:" + bird.getScore());
 					System.out.println("--------");
-					
 
 				}
 			}
@@ -94,4 +131,5 @@ public class World {
 		}
 
 	}
+	
 }

@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import cz.uhk.fim.pro2.game.gui.GameCanvas;
+import cz.uhk.fim.pro2.game.gui.MainFrame;
+
 public class Bird {
 
 	public static final int DEFAULT_SCORE=0;
@@ -13,8 +16,8 @@ public class Bird {
 	private int speed;
 	private int lives;
 	private int score;
-	private static final int GRAVITY = 150;
-	public static final int JUMP = 350;
+	private static final int GRAVITY = 180;
+	public static final int JUMP = 385;
 
 	public Bird(String name, float pozX, float pozY) {
 		this.name = name;
@@ -55,9 +58,17 @@ public class Bird {
 		return getRect().intersects(sr.getRect());
 	}
 
-	public boolean isOut() {
+/*	public boolean isOut() {
 		// System.out.println(pozY);
-		return pozY < 0 || pozY > 800;
+		return pozY < 20 || pozY > 750;
+
+	}
+	*/
+	public boolean isOut() {
+		Rectangle rec = getRect();
+		int upLimit = GameCanvas.UP;
+		int downLimit = MainFrame.height - GameCanvas.DOWN;
+		return rec.getMinY() < upLimit || rec.getMaxY() > downLimit;
 
 	}
 	

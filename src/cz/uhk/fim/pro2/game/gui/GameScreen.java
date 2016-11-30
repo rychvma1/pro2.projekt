@@ -2,6 +2,7 @@ package cz.uhk.fim.pro2.game.gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +24,8 @@ public class GameScreen extends Screen implements WorldLisener {
 	private Timer timer;
 	private Bird bird;
 	private JLabel jLabelScore, jLabelLives;
+
+	
 
 	public GameScreen(MainFrame mainFrame) {
 		super(mainFrame);
@@ -54,7 +57,7 @@ public class GameScreen extends Screen implements WorldLisener {
 				}
 			}
 		});
-		
+
 		// umiestnenie tlacitok
 		JButtonBack.setBounds(50, 50, 100, 50);
 		JButtonPause.setBounds(250, 50, 200, 50);
@@ -63,31 +66,32 @@ public class GameScreen extends Screen implements WorldLisener {
 		JButtonBack.setBackground(Color.RED);
 		JButtonPause.setFont(new Font("Arial", Font.PLAIN, 24));
 		JButtonPause.setBackground(Color.RED);
-		
-	
 
 		bird = new Bird("Flapy", 240, 400);
 		World world = new World(bird, this);
-		
+
 		jLabelLives = new JLabel("Lives: " + bird.getLives());
 		jLabelScore = new JLabel("Score: " + bird.getScore());
-		
+
 		jLabelLives.setBounds(30, 720, 50, 50);
 		jLabelScore.setBounds(230, 720, 150, 50);
-		
+
 		add(jLabelLives);
 		add(jLabelScore);
-
-
-		// trubky vo svete
-		world.addTube(new Trubka(400, 400, Color.green));
-		world.addTube(new Trubka(600, 300, Color.green));
-		world.addTube(new Trubka(800, 500, Color.green));
-
+		
+		/*
+		 * // trubky vo svete world.addTube(new Trubka(400, 400, Color.green));
+		 * world.addTube(new Trubka(600, 300, Color.green)); world.addTube(new
+		 * Trubka(800, 500, Color.green));
+		 */
+		
+		world.generateRandom();
 		// srdcia vo svete
+		/*
 		world.addHearts(new Srdce(500, 250));
 		world.addHearts(new Srdce(700, 600));
-
+*/
+		
 		GameCanvas gameCanvas = new GameCanvas(world);
 		add(gameCanvas);
 		gameCanvas.setBounds(0, 0, MainFrame.width, MainFrame.height);
@@ -114,18 +118,13 @@ public class GameScreen extends Screen implements WorldLisener {
 				float delta = (currentTimeMillis - lastTimeMillies) / 1000F;
 				world.update(delta);
 
-				
-				jLabelLives = new JLabel("Lives: " + bird.getLives());
-				jLabelScore = new JLabel("Score: " + bird.getScore());
-			
-				add(jLabelLives);
-				add(jLabelScore);
-				
-				
-				if(!bird.isAlive()){
+				jLabelLives.setText("Lives: " + bird.getLives());
+				jLabelScore.setText("Score: " + bird.getScore());
+
+				if (!bird.isAlive()) {
 					timer.stop();
 				}
-				
+
 				gameCanvas.repaint();
 
 				lastTimeMillies = currentTimeMillis;
@@ -135,6 +134,8 @@ public class GameScreen extends Screen implements WorldLisener {
 
 		lastTimeMillies = System.currentTimeMillis();
 		timer.start();
+		
+
 	}
 
 	@Override
@@ -142,8 +143,7 @@ public class GameScreen extends Screen implements WorldLisener {
 		bird.removeLive();
 		bird.setPozY(tube.getCenterY());
 		System.out.println("Naraz do trubky. Lives: " + bird.getLives());
-		jLabelLives = new JLabel("Lives: " + bird.getLives());
-		add(jLabelLives);
+
 	}
 
 	@Override
@@ -151,21 +151,16 @@ public class GameScreen extends Screen implements WorldLisener {
 		sr.setPozY(-100);
 		bird.addLive();
 		System.out.println("Vzal si srdce. Lives: " + bird.getLives());
-		jLabelLives = new JLabel("Lives: " + bird.getLives());
-		add(jLabelLives);
+
 	}
 
 	@Override
 	public void outOf() {
 		System.out.println("Si mimo svet");
 		bird.setPozY(400);
-		bird.setSpeed(bird.JUMP/2);
+		bird.setSpeed(bird.JUMP / 2);
 		bird.setLives(0);
 		bird.isAlive();
-		jLabelLives = new JLabel("Lives: " + bird.getLives());
-		jLabelScore = new JLabel("Score: " + bird.getScore());
-	
-		add(jLabelLives);
-		add(jLabelScore);
+
 	}
 }

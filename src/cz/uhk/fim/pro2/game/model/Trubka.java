@@ -3,6 +3,7 @@ package cz.uhk.fim.pro2.game.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.Random;
 
 import cz.uhk.fim.pro2.game.gui.MainFrame;
 
@@ -19,7 +20,7 @@ public class Trubka {
 		this.color = color;
 		this.pozX = pozX;
 		this.height = height;
-		
+
 	}
 
 	public float getPozX() {
@@ -62,39 +63,47 @@ public class Trubka {
 		this.color = color;
 	}
 
+	public static float getRandomHeight() {
+		return (new Random().nextFloat() * 350) + 250;
+	}
+	
+	public boolean setCounted(){
+		return false;
+	}
+
 	public void paint(Graphics g) {
 		g.setColor(Color.GREEN);
 		Rectangle rectH = getRectH();
-		g.fillRect((int)rectH.getX(), (int)rectH.getY(), (int)rectH.getWidth(), (int) rectH.getHeight());
+		g.fillRect((int) rectH.getX(), (int) rectH.getY(), (int) rectH.getWidth(), (int) rectH.getHeight());
 
 		Rectangle rectD = getRectD();
 		g.fillRect(rectD.x, rectD.y, rectD.width, rectD.height);
-	
-	}
-	
-	public Rectangle getRectH() {
-		return new Rectangle((int) getPozX() - WIDTH,  height, 50, (int) (MainFrame.height - height));
-	}
-	
-	public Rectangle getRectD() {
-		return new Rectangle((int) getPozX() - WIDTH, 0, 50,  (height - GAP));
-	}
-	
-	public void update(float deltaTime){
-		pozX -= World.SPEED * deltaTime;
-		
-	}
-	
-	public int getCenterY(){
-		return (int) (height - GAP/2.0);
+
 	}
 
-	public int getMinX(){
-		return (int) pozX - (WIDTH/2);
+	public Rectangle getRectH() {
+		return new Rectangle((int) getPozX() - WIDTH, height, 50, (int) (MainFrame.height - height));
 	}
-	
-	public int getMaxX(){
-		return (int) pozX + (WIDTH/2);
+
+	public Rectangle getRectD() {
+		return new Rectangle((int) getPozX() - WIDTH, 0, 50, (height - GAP));
 	}
-	
+
+	public void update(float deltaTime) {
+		pozX -= World.SPEED * deltaTime;
+
+	}
+
+	public int getCenterY() {
+		return (int) (height - GAP / 2.0);
+	}
+
+	public int getMinX() {
+		return (int) pozX - (WIDTH / 2);
+	}
+
+	public int getMaxX() {
+		return (int) pozX + (WIDTH / 2);
+	}
+
 }
