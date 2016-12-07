@@ -32,13 +32,6 @@ public class Bird {
 		speed = JUMP;
 	}
 
-	public void take() {
-		/*
-		 * if(collideWith(Srdce sr)){ lives++; }
-		 */
-
-	}
-
 	public void paint(Graphics g) {
 		g.setColor(Color.BLUE);
 		Rectangle rect = getRect();
