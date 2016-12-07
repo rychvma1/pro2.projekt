@@ -23,6 +23,10 @@ public class GameScreen extends Screen implements WorldLisener {
 	private long lastTimeMillies;
 	private Timer timer;
 	private Bird bird;
+	public Bird getBird() {
+		return bird;
+	}
+
 	private JLabel jLabelScore, jLabelLives;
 
 	
@@ -123,6 +127,8 @@ public class GameScreen extends Screen implements WorldLisener {
 
 				if (!bird.isAlive()) {
 					timer.stop();
+					FinisScreen finisScreen = new FinisScreen(mainFrame, world);
+					mainFrame.setScreen(finisScreen);
 				}
 
 				gameCanvas.repaint();
@@ -142,7 +148,7 @@ public class GameScreen extends Screen implements WorldLisener {
 	public void crashTube(Trubka tube) {
 		bird.removeLive();
 		bird.setPozY(tube.getCenterY());
-		System.out.println("Naraz do trubky. Lives: " + bird.getLives());
+	//	System.out.println("Naraz do trubky. Lives: " + bird.getLives());
 
 	}
 
@@ -150,13 +156,13 @@ public class GameScreen extends Screen implements WorldLisener {
 	public void crashHeart(Srdce sr) {
 		sr.setPozY(-100);
 		bird.addLive();
-		System.out.println("Vzal si srdce. Lives: " + bird.getLives());
+	//	System.out.println("Vzal si srdce. Lives: " + bird.getLives());
 
 	}
 
 	@Override
 	public void outOf() {
-		System.out.println("Si mimo svet");
+		//System.out.println("Si mimo svet");
 		bird.setPozY(400);
 		bird.setSpeed(bird.JUMP / 2);
 		bird.setLives(0);
