@@ -16,7 +16,11 @@ public class ScoreScreen extends Screen {
 		super(mainFrame);
 		
 		for(int i=0; i < ScoreManager.putAll().size();i++){
-			System.out.println(ScoreManager.getInstance().putAll().get(i));
+			int score = ScoreManager.putAll().get(i);
+			ScoreItem scoreItem = new ScoreItem(i+1, score);
+			scoreItem.setBounds(40, 200 + i*50 , 400, 50);
+			add(scoreItem);
+		//	System.out.println(ScoreManager.getInstance().putAll().get(i));
 		}
 		
 		JButton JButtonBack = new JButton("back");
