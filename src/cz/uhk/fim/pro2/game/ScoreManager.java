@@ -19,6 +19,10 @@ public class ScoreManager {
 		return scoreList;
 	}
 	
+
+	
+
+	
 	//singelton
 	private static ScoreManager instance;
 
@@ -36,5 +40,13 @@ public class ScoreManager {
 	
 	public static List<Integer> putAll(){
 		return getInstance().getAll();
+	}
+	
+	public static int getScore(int index){
+		return instance.putAll().get(index);
+	}
+	
+	public static int size(){
+		return instance.getAll().size();
 	}
 }
