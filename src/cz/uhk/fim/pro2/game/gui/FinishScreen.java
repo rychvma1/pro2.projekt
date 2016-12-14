@@ -12,12 +12,12 @@ import cz.uhk.fim.pro2.game.ScoreManager;
 import cz.uhk.fim.pro2.game.model.Bird;
 import cz.uhk.fim.pro2.game.model.World;
 
-public class FinisScreen extends Screen{
+public class FinishScreen extends Screen{
 
 	JLabel jLabelScore;
 	
 	
-	public FinisScreen(MainFrame mainFrame, World world) {
+	public FinishScreen(MainFrame mainFrame, World world) {
 		super(mainFrame);
 		
 		int score = world.getBird().getScore();

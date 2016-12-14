@@ -12,8 +12,8 @@ public class World {
 
 	private Bird bird;
 	private WorldLisener worldLisener;
-	private List<Trubka> tubes;
-	private List<Srdce> hearts;
+	private List<Tube> tubes;
+	private List<Heart> hearts;
 	private static final int SPACE_BETWEEN_TUBES = 300;
 	private static final int SPACE_BETWEEN_HEARTS = 450;
 	public static final int SPEED = 100;
@@ -26,11 +26,11 @@ public class World {
 		hearts = new ArrayList<>();
 	}
 
-	public void addTube(Trubka tube) {
+	public void addTube(Tube tube) {
 		tubes.add(tube);
 	}
 
-	public void addHearts(Srdce srdce) {
+	public void addHearts(Heart srdce) {
 		hearts.add(srdce);
 	}
 
@@ -56,36 +56,36 @@ public class World {
 		this.bird = bird;
 	}
 
-	public List<Srdce> getHearts() {
+	public List<Heart> getHearts() {
 		return hearts;
 	}
 
-	public List<Trubka> getTubes() {
+	public List<Tube> getTubes() {
 		return tubes;
 	}
 
 	public void generateRandom() {
 		for (int i = 0; i < 3; i++) {
-			Trubka tube = new Trubka(SPACE_BETWEEN_TUBES + i * SPACE_BETWEEN_TUBES, (int) Trubka.getRandomHeight(),
+			Tube tube = new Tube(SPACE_BETWEEN_TUBES + i * SPACE_BETWEEN_TUBES, (int) Tube.getRandomHeight(),
 					Color.green);
 			addTube(tube);
 		}
 
-		addHearts(new Srdce(SPACE_BETWEEN_HEARTS, Srdce.getRandomY()));
+		addHearts(new Heart(SPACE_BETWEEN_HEARTS, Heart.getRandomY()));
 
 		genereted = true;
 	}
 
 	private void regenerate() {
-		for (Trubka tube : tubes) {
+		for (Tube tube : tubes) {
 			if (tube.getPozX() < -100) {
 				tube.setPozX(tube.getPozX() + tubes.size() * SPACE_BETWEEN_TUBES);
-				tube.setHeight((int) Trubka.getRandomHeight());
+				tube.setHeight((int) Tube.getRandomHeight());
 				tube.setPoints(false);
 			}
 		}
 
-		for (Srdce sr : hearts) {
+		for (Heart sr : hearts) {
 			if (sr.getPozX() < -100) {
 				sr.setPozX(sr.getPozX() + ((hearts.size()) + 2) * SPACE_BETWEEN_HEARTS);
 				sr.setPozY(sr.getRandomY());
@@ -105,7 +105,7 @@ public class World {
 			worldLisener.outOf();
 		}
 
-		for (Trubka tr : tubes) {
+		for (Tube tr : tubes) {
 			tr.update(deltaTime);
 
 			if (bird.collideWith(tr)) {
@@ -121,7 +121,7 @@ public class World {
 				}
 			}
 		}
-		for (Srdce sr : hearts) {
+		for (Heart sr : hearts) {
 			sr.update(deltaTime);
 
 			if (bird.collideWith(sr)) {

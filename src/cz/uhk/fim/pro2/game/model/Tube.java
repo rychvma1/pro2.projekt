@@ -3,11 +3,12 @@ package cz.uhk.fim.pro2.game.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import cz.uhk.fim.pro2.game.gui.MainFrame;
 
-public class Trubka {
+public class Tube {
 
 	private float pozX, pozY;
 	private int height;
@@ -16,7 +17,7 @@ public class Trubka {
 	private static final int WIDTH = 25;
 	private boolean points;
 
-	public Trubka(float pozX, int height, Color color) {
+	public Tube(float pozX, int height, Color color) {
 		this.color = color;
 		this.pozX = pozX;
 		this.height = height;
@@ -78,6 +79,17 @@ public class Trubka {
 
 		Rectangle rectD = getRectD();
 		g.fillRect(rectD.x, rectD.y, rectD.width, rectD.height);
+
+	}
+	
+	public void paint(Graphics g, BufferedImage img) {
+		g.setColor(Color.GREEN);
+		Rectangle rectH = getRectH();
+	
+g.drawImage(img, (int) rectH.getX(), (int) rectH.getY(),(int) rectH.getWidth(), (int) rectH.getHeight(), null);
+		Rectangle rectD = getRectD();
+	
+		g.drawImage(img, rectD.x, rectD.y, rectD.width, rectD.height, null);
 
 	}
 

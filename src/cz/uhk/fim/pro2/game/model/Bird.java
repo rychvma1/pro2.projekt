@@ -3,14 +3,15 @@ package cz.uhk.fim.pro2.game.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import cz.uhk.fim.pro2.game.gui.GameCanvas;
 import cz.uhk.fim.pro2.game.gui.MainFrame;
 
 public class Bird {
 
-	public static final int DEFAULT_SCORE=0;
-	public static final int DEFAULT_LIVES=3;
+	public static final int DEFAULT_SCORE = 0;
+	public static final int DEFAULT_LIVES = 3;
 	private String name;
 	private float pozX, pozY;
 	private int speed;
@@ -32,6 +33,12 @@ public class Bird {
 		speed = JUMP;
 	}
 
+	public void paint(Graphics g, BufferedImage img) {
+		g.setColor(Color.BLUE);
+		Rectangle rect = getRect();
+		g.drawImage(img, rect.x, rect.y, rect.width, rect.height, null);
+	}
+
 	public void paint(Graphics g) {
 		g.setColor(Color.BLUE);
 		Rectangle rect = getRect();
@@ -42,21 +49,21 @@ public class Bird {
 		return new Rectangle((int) getPozX() - 25, (int) getPozY() - 25, 50, 50);
 	}
 
-	public boolean collideWith(Trubka tube) {
+	public boolean collideWith(Tube tube) {
 		Rectangle rect = getRect();
 		return rect.intersects(tube.getRectD()) || rect.intersects(tube.getRectH());
 	}
 
-	public boolean collideWith(Srdce sr) {
+	public boolean collideWith(Heart sr) {
 		return getRect().intersects(sr.getRect());
 	}
 
-/*	public boolean isOut() {
-		// System.out.println(pozY);
-		return pozY < 20 || pozY > 750;
-
-	}
-	*/
+	/*
+	 * public boolean isOut() { // System.out.println(pozY); return pozY < 20 ||
+	 * pozY > 750;
+	 * 
+	 * }
+	 */
 	public boolean isOut() {
 		Rectangle rec = getRect();
 		int upLimit = GameCanvas.UP;
@@ -64,15 +71,15 @@ public class Bird {
 		return rec.getMinY() < upLimit || rec.getMaxY() > downLimit;
 
 	}
-	
-	public boolean isAlive(){
-		return lives>0;
+
+	public boolean isAlive() {
+		return lives > 0;
 	}
-	
-	public void addPoint(){
+
+	public void addPoint() {
 		score++;
 	}
-	
+
 	public void addLive() {
 		this.lives++;
 	}
@@ -124,7 +131,6 @@ public class Bird {
 		return this.name;
 	}
 
-	
 	public int getScore() {
 		return this.score;
 	}

@@ -14,8 +14,8 @@ import javax.swing.Timer;
 
 import cz.uhk.fim.pro2.game.interfaces.WorldLisener;
 import cz.uhk.fim.pro2.game.model.Bird;
-import cz.uhk.fim.pro2.game.model.Srdce;
-import cz.uhk.fim.pro2.game.model.Trubka;
+import cz.uhk.fim.pro2.game.model.Heart;
+import cz.uhk.fim.pro2.game.model.Tube;
 import cz.uhk.fim.pro2.game.model.World;
 
 public class GameScreen extends Screen implements WorldLisener {
@@ -127,7 +127,7 @@ public class GameScreen extends Screen implements WorldLisener {
 
 				if (!bird.isAlive()) {
 					timer.stop();
-					FinisScreen finisScreen = new FinisScreen(mainFrame, world);
+					FinishScreen finisScreen = new FinishScreen(mainFrame, world);
 					mainFrame.setScreen(finisScreen);
 				}
 
@@ -145,7 +145,7 @@ public class GameScreen extends Screen implements WorldLisener {
 	}
 
 	@Override
-	public void crashTube(Trubka tube) {
+	public void crashTube(Tube tube) {
 		bird.removeLive();
 		bird.setPozY(tube.getCenterY());
 	//	System.out.println("Naraz do trubky. Lives: " + bird.getLives());
@@ -153,7 +153,7 @@ public class GameScreen extends Screen implements WorldLisener {
 	}
 
 	@Override
-	public void crashHeart(Srdce sr) {
+	public void crashHeart(Heart sr) {
 		sr.setPozY(-100);
 		bird.addLive();
 	//	System.out.println("Vzal si srdce. Lives: " + bird.getLives());

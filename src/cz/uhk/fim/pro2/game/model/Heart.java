@@ -3,14 +3,15 @@ package cz.uhk.fim.pro2.game.model;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
-public class Srdce {
+public class Heart {
 
 	private float pozX, pozY;
 	
 
-	public Srdce(float pozX, float pozY) {
+	public Heart(float pozX, float pozY) {
 		this.pozX = pozX;
 		this.pozY = pozY;
 	}
@@ -31,10 +32,18 @@ public class Srdce {
 		this.pozY = pozY;
 	}
 
+	public void paint(Graphics g, BufferedImage img) {
+		g.setColor(Color.RED);
+		Rectangle rect = getRect();
+
+		g.drawImage(img, rect.x, rect.y, rect.width, rect.height, null);
+	}
+	
 	public void paint(Graphics g) {
 		g.setColor(Color.RED);
 		Rectangle rect = getRect();
 		g.fillRect(rect.x, rect.y, rect.width, rect.height);
+	
 	}
 	
 	public Rectangle getRect() {
