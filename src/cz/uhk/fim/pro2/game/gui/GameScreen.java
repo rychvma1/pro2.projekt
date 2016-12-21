@@ -23,13 +23,7 @@ public class GameScreen extends Screen implements WorldLisener {
 	private long lastTimeMillies;
 	private Timer timer;
 	private Bird bird;
-	public Bird getBird() {
-		return bird;
-	}
-
 	private JLabel jLabelScore, jLabelLives;
-
-	
 
 	public GameScreen(MainFrame mainFrame) {
 		super(mainFrame);
@@ -106,7 +100,7 @@ public class GameScreen extends Screen implements WorldLisener {
 			public void mousePressed(MouseEvent e) {
 				super.mousePressed(e);
 				bird.goUp();
-
+				
 			}
 
 		});
@@ -140,7 +134,7 @@ public class GameScreen extends Screen implements WorldLisener {
 
 		lastTimeMillies = System.currentTimeMillis();
 		timer.start();
-		
+		setOpaque(true);		
 
 	}
 
@@ -168,5 +162,9 @@ public class GameScreen extends Screen implements WorldLisener {
 		bird.setLives(0);
 		bird.isAlive();
 
+	}
+	
+	public Bird getBird() {
+		return bird;
 	}
 }

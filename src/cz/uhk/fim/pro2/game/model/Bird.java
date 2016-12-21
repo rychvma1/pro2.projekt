@@ -2,6 +2,7 @@ package cz.uhk.fim.pro2.game.model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -31,15 +32,20 @@ public class Bird {
 
 	public void goUp() {
 		speed = JUMP;
+		
 	}
 
 	public void paint(Graphics g, BufferedImage img) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.rotate(0.1);
 		g.setColor(Color.BLUE);
 		Rectangle rect = getRect();
 		g.drawImage(img, rect.x, rect.y, rect.width, rect.height, null);
 	}
 
 	public void paint(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.rotate(0.1);
 		g.setColor(Color.BLUE);
 		Rectangle rect = getRect();
 		g.fillRect(rect.x, rect.y, rect.width, rect.height);
@@ -58,12 +64,6 @@ public class Bird {
 		return getRect().intersects(sr.getRect());
 	}
 
-	/*
-	 * public boolean isOut() { // System.out.println(pozY); return pozY < 20 ||
-	 * pozY > 750;
-	 * 
-	 * }
-	 */
 	public boolean isOut() {
 		Rectangle rec = getRect();
 		int upLimit = GameCanvas.UP;

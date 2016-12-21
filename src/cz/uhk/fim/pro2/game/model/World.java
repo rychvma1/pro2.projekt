@@ -115,8 +115,6 @@ public class World {
 
 					tr.setPoints(true);
 					bird.addPoint();
-					System.out.println("Skore:" + bird.getScore());
-					System.out.println("--------");
 
 				}
 			}

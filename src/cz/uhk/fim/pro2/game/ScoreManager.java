@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import sun.nio.ch.FileKey;
+
 public class ScoreManager {
 
 	private List<Integer> scoreList;
@@ -24,18 +26,16 @@ public class ScoreManager {
 		scoreList.add(score);
 		
 		try {
-		//	FileWriter fileWriter = new FileWriter(Game.SCORE_FILE, true);
-			FileWriter fileWriter = new FileWriter(Game.SCORE_FILE);
-			
-			for(int value : scoreList){
-			fileWriter.append(String.valueOf(value));
+			FileWriter fileWriter = new FileWriter(Game.SCORE_FILE,true);
+								
+			fileWriter.append(String.valueOf(score));
 			fileWriter.append(";");
 			fileWriter.append(new Date().toGMTString());
 			fileWriter.append("\n");
 			
 			fileWriter.flush();
 			fileWriter.close();
-			}
+			
 		} catch (IOException e) {
 			System.out.println("Chyba pri zapise");
 		}
